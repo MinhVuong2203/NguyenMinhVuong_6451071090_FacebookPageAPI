@@ -1,0 +1,6 @@
+@FacePageAPI_HostAddress = http://localhost:5180
+
+GET {{FacePageAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
