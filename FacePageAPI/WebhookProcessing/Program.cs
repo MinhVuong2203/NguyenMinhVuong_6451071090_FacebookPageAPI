@@ -1,5 +1,4 @@
-﻿
-using FacePageAPI.Service;
+﻿using FacePageAPI.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
