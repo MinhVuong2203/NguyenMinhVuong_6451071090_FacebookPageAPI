@@ -1,7 +1,7 @@
-﻿using FacePageAPI.Model;
+﻿using CoreService.Model;
 using System.Collections.Concurrent;
 
-namespace FacePageAPI.Service
+namespace CoreService.Service
 {
     public class StateManagementService
     {
@@ -85,3 +85,4 @@ namespace FacePageAPI.Service
         }
     }
 }
+

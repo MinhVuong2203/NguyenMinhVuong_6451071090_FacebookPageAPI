@@ -1,8 +1,8 @@
-﻿using FacePageAPI.Model;
+﻿using CoreService.Model;
 using System.Text;
 using System.Text.Json;
 
-namespace FacePageAPI.Service
+namespace CoreService.Service
 {
     public class GeminiAIService
     {
@@ -159,3 +159,4 @@ CHỈ TRẢ VỀ JSON, KHÔNG CÓ GÌ KHÁC!";
         }
     }
 }
+

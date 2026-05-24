@@ -1,0 +1,78 @@
+{
+  "sentCommands": {
+    "reply_comment:122103246236741950_1668827824371223": {
+      "idempotencyKey": "reply_comment:122103246236741950_1668827824371223",
+      "commandId": "6b7ddcdc-f699-4fac-8f56-98bf97716d7b",
+      "commandType": "reply_comment",
+      "eventId": "122103246236741950_1668827824371223",
+      "userId": "26607932662195563",
+      "sentAt": "2026-05-23T03:40:44.9272751Z",
+      "facebookResponse": "{\u0022id\u0022:\u0022122103246236741950_1501660981605621\u0022}"
+    },
+    "reply_comment:122103246236741950_1501660981605621": {
+      "idempotencyKey": "reply_comment:122103246236741950_1501660981605621",
+      "commandId": "ba71cb56-4175-4c74-b0d1-95c28b02e3e1",
+      "commandType": "reply_comment",
+      "eventId": "122103246236741950_1501660981605621",
+      "userId": "1036706469533232",
+      "sentAt": "2026-05-23T03:41:02.012579Z",
+      "facebookResponse": "{\u0022id\u0022:\u0022122103246236741950_1230127412365466\u0022}"
+    },
+    "reply_comment:122103271568741950_1386413643508826": {
+      "idempotencyKey": "reply_comment:122103271568741950_1386413643508826",
+      "commandId": "d6dce8c1-fe7f-43ad-b89c-67905e8c6036",
+      "commandType": "reply_comment",
+      "eventId": "122103271568741950_1386413643508826",
+      "userId": "26607932662195563",
+      "sentAt": "2026-05-23T04:00:33.008109Z",
+      "facebookResponse": "{\u0022id\u0022:\u0022122103271568741950_1676992070157966\u0022}"
+    }
+  },
+  "failedCommands": [
+    {
+      "failureId": "874f4909-12aa-4801-a055-093bf6164446",
+      "idempotencyKey": "reply_comment:122103271568741950_1310978497664709",
+      "commandId": "756cbe16-0f0a-496f-b561-2119900c6471",
+      "commandType": "reply_comment",
+      "errorMessage": "Facebook Graph API failed: 400 {\u0022error\u0022:{\u0022message\u0022:\u0022Error validating access token: Session has expired on Friday, 22-May-26 20:00:00 PDT. The current time is Friday, 22-May-26 20:19:36 PDT.\u0022,\u0022type\u0022:\u0022OAuthException\u0022,\u0022code\u0022:190,\u0022error_subcode\u0022:463,\u0022fbtrace_id\u0022:\u0022A5YQc6cTtsy4975DpZXk89v\u0022}}",
+      "failedAt": "2026-05-23T03:19:35.2954844Z",
+      "retryCount": 0
+    },
+    {
+      "failureId": "b3eb06a6-846d-4b80-95ff-809eebf23a3b",
+      "idempotencyKey": "reply_comment:122103271568741950_2032974667619986",
+      "commandId": "ed030b3a-b819-4ce1-94ba-f1f990ad11f4",
+      "commandType": "reply_comment",
+      "errorMessage": "Facebook Graph API failed: 400 {\u0022error\u0022:{\u0022message\u0022:\u0022Error validating access token: Session has expired on Friday, 22-May-26 20:00:00 PDT. The current time is Friday, 22-May-26 20:23:24 PDT.\u0022,\u0022type\u0022:\u0022OAuthException\u0022,\u0022code\u0022:190,\u0022error_subcode\u0022:463,\u0022fbtrace_id\u0022:\u0022A-iiln_mxvpmcuU7Ga4q6n9\u0022}}",
+      "failedAt": "2026-05-23T03:23:23.063529Z",
+      "retryCount": 0
+    },
+    {
+      "failureId": "afe9f06b-05da-41d9-9acb-c8dd9e970bd5",
+      "idempotencyKey": "reply_comment:122103246236741950_1705331517485601",
+      "commandId": "afc8d5f3-ba96-427f-9152-7315de85ef91",
+      "commandType": "reply_comment",
+      "errorMessage": "Facebook Graph API failed: 400 {\u0022error\u0022:{\u0022message\u0022:\u0022Error validating access token: Session has expired on Friday, 22-May-26 20:00:00 PDT. The current time is Friday, 22-May-26 20:30:20 PDT.\u0022,\u0022type\u0022:\u0022OAuthException\u0022,\u0022code\u0022:190,\u0022error_subcode\u0022:463,\u0022fbtrace_id\u0022:\u0022Aaz1GQ_ETRbPiGyA3TKhV8x\u0022}}",
+      "failedAt": "2026-05-23T03:30:19.7506449Z",
+      "retryCount": 0
+    },
+    {
+      "failureId": "0b45120b-1f08-48bd-aebf-68edfeefd1af",
+      "idempotencyKey": "hide_comment:122103246236741950_1230127412365466",
+      "commandId": "101b10ce-45ad-4bcd-8297-2aa351d16a95",
+      "commandType": "hide_comment",
+      "errorMessage": "Facebook Graph API failed: 403 {\u0022error\u0022:{\u0022message\u0022:\u0022(#200) Can not hide or unhide this comment\u0022,\u0022type\u0022:\u0022OAuthException\u0022,\u0022code\u0022:200,\u0022fbtrace_id\u0022:\u0022A-AQ2XzMcTNBBVK7DPZZ67T\u0022}}",
+      "failedAt": "2026-05-23T03:41:06.2589889Z",
+      "retryCount": 0
+    },
+    {
+      "failureId": "6baa8200-64a3-42e8-b418-5ce3be60cea8",
+      "idempotencyKey": "hide_comment:122103271568741950_1676992070157966",
+      "commandId": "d78a6154-188a-494d-a340-ff31d4cc6ca6",
+      "commandType": "hide_comment",
+      "errorMessage": "Facebook Graph API failed: 403 {\u0022error\u0022:{\u0022message\u0022:\u0022(#200) Can not hide or unhide this comment\u0022,\u0022type\u0022:\u0022OAuthException\u0022,\u0022code\u0022:200,\u0022fbtrace_id\u0022:\u0022ADRHYUxEQKXnNpdAo0UnOzo\u0022}}",
+      "failedAt": "2026-05-23T04:00:43.3190675Z",
+      "retryCount": 0
+    }
+  ]
+}
