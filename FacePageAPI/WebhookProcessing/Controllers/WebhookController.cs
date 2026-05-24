@@ -2,6 +2,8 @@
 using FacePageAPI.Service;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace FacePageAPI.Controllers
 {
@@ -51,6 +53,12 @@ namespace FacePageAPI.Controllers
 
                 _logger.LogInformation($"=== WEBHOOK RECEIVED ===");
                 _logger.LogInformation($"Raw JSON: {json}");
+
+                if (!IsValidFacebookSignature(json))
+                {
+                    _logger.LogWarning("Invalid Facebook webhook signature.");
+                    return Unauthorized(new { status = "INVALID_SIGNATURE" });
+                }
 
                 if (string.IsNullOrEmpty(json))
                 {
@@ -136,6 +144,48 @@ namespace FacePageAPI.Controllers
                 _logger.LogError($"Error normalizing event: {ex.Message}");
                 return null;
             }
+        }
+
+        private bool IsValidFacebookSignature(string body)
+        {
+            var appSecret = _configuration["Facebook:AppSecret"];
+            if (string.IsNullOrWhiteSpace(appSecret))
+            {
+                _logger.LogWarning("Facebook:AppSecret is not configured. Skipping HMAC signature verification.");
+                return true;
+            }
+
+            if (!Request.Headers.TryGetValue("X-Hub-Signature-256", out var signatureHeader))
+            {
+                return false;
+            }
+
+            const string prefix = "sha256=";
+            var signature = signatureHeader.ToString();
+            if (!signature.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            var providedSignatureHex = signature[prefix.Length..];
+            byte[] providedHash;
+            try
+            {
+                providedHash = Convert.FromHexString(providedSignatureHex);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+
+            var secretBytes = Encoding.UTF8.GetBytes(appSecret);
+            var bodyBytes = Encoding.UTF8.GetBytes(body);
+
+            using var hmac = new HMACSHA256(secretBytes);
+            var computedHash = hmac.ComputeHash(bodyBytes);
+
+            return providedHash.Length == computedHash.Length &&
+                   CryptographicOperations.FixedTimeEquals(providedHash, computedHash);
         }
     }
 }
