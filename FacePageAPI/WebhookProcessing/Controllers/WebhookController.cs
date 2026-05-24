@@ -52,14 +52,6 @@ namespace FacePageAPI.Controllers
                 _logger.LogInformation($"=== WEBHOOK RECEIVED ===");
                 _logger.LogInformation($"Raw JSON: {json}");
 
-                // Lưu raw vào Kafka TRƯỚC để đảm bảo không mất data
-                await _kafkaProducer.ProduceAsync(
-                    "raw_events",
-                    Guid.NewGuid().ToString(),
-                    new { RawJson = json, ReceivedAt = DateTime.UtcNow }
-                );
-                _logger.LogInformation("✅ Saved raw JSON to Kafka");
-
                 if (string.IsNullOrEmpty(json))
                 {
                     _logger.LogWarning("Empty body!");
@@ -84,25 +76,15 @@ namespace FacePageAPI.Controllers
                     {
                         _logger.LogInformation($"Change field: {change.Field}");
 
-                        // Đẩy vào Kafka raw_events
-                        await _kafkaProducer.ProduceAsync(
-                            "raw_events",
-                            entry.Id,
-                            new { entry.Id, entry.Time, Change = change }
-                        );
-
-                        _logger.LogInformation("✅ Pushed to Kafka raw_events");
-
-                        // Normalize và đẩy vào normalized_events
                         var normalizedEvent = NormalizeEvent(entry, change);
                         if (normalizedEvent != null)
                         {
                             await _kafkaProducer.ProduceAsync(
-                                "normalized_events",
+                                "raw_events",
                                 normalizedEvent.EventId,
                                 normalizedEvent
                             );
-                            _logger.LogInformation("✅ Pushed to Kafka normalized_events");
+                            _logger.LogInformation("✅ Pushed normalized event to Kafka raw_events");
                         }
                     }
                 }

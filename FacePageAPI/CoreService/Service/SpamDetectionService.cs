@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace FacePageAPI.Service
+namespace CoreService.Service
 {
     public class SpamDetectionService
     {
@@ -84,3 +84,4 @@ namespace FacePageAPI.Service
     }
 
 }
+

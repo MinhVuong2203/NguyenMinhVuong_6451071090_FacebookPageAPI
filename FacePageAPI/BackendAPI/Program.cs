@@ -1,4 +1,4 @@
-using CoreService.Service;
+using BackendAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,12 +6,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpClient<FacebookGraphApiClient>();
+builder.Services.AddSingleton<IdempotencyStore>();
 builder.Services.AddSingleton<KafkaProducerService>();
-builder.Services.AddSingleton<GeminiAIService>();
-builder.Services.AddSingleton<SpamDetectionService>();
-builder.Services.AddSingleton<StateManagementService>();
-builder.Services.AddSingleton<ActionExecutorService>();
-builder.Services.AddHostedService<KafkaConsumerService>();
+builder.Services.AddHostedService<ReplyCommandConsumerService>();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -26,11 +24,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
-Console.WriteLine("Core Service starting on port 3002...");
-Console.WriteLine("Core Service consumes raw_events and publishes reply_commands.");
+Console.WriteLine("Backend API starting on port 3000...");
+Console.WriteLine("Backend API consumes reply_commands/send_retry and publishes send_failed.");
 app.Run();

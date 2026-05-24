@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreService", "CoreService\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebhookProcessing", "WebhookProcessing\WebhookProcessing.csproj", "{3FD186E6-30C5-53CB-3976-A58BEB8687AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendAPI", "BackendAPI\BackendAPI.csproj", "{C65DE9A4-F21A-4D97-8A12-5BE5873E7801}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3FD186E6-30C5-53CB-3976-A58BEB8687AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FD186E6-30C5-53CB-3976-A58BEB8687AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FD186E6-30C5-53CB-3976-A58BEB8687AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C65DE9A4-F21A-4D97-8A12-5BE5873E7801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C65DE9A4-F21A-4D97-8A12-5BE5873E7801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C65DE9A4-F21A-4D97-8A12-5BE5873E7801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C65DE9A4-F21A-4D97-8A12-5BE5873E7801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

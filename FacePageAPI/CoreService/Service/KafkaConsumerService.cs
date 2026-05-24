@@ -1,8 +1,8 @@
 ﻿using Confluent.Kafka;
-using FacePageAPI.Model;
+using CoreService.Model;
 using System.Text.Json;
 
-namespace FacePageAPI.Service
+namespace CoreService.Service
 {
     public class KafkaConsumerService : BackgroundService
     {
@@ -47,10 +47,9 @@ namespace FacePageAPI.Service
             // Delay để ASP.NET server start hoàn toàn trước
             await Task.Delay(5000, stoppingToken);
 
-            // Subscribe topic đã normalize
-            _consumer.Subscribe("normalized_events");
+            _consumer.Subscribe("raw_events");
 
-            _logger.LogInformation("✅ Subscribed to normalized_events");
+            _logger.LogInformation("✅ Subscribed to raw_events");
 
             try
             {
@@ -119,9 +118,11 @@ namespace FacePageAPI.Service
             {
                 _logger.LogInformation($"Processing raw event: {messageJson}");
 
-                // Parse normalized event
                 var normalizedEvent =
-                    JsonSerializer.Deserialize<NormalizedEvent>(messageJson);
+                    JsonSerializer.Deserialize<NormalizedEvent>(messageJson, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
 
                 if (normalizedEvent == null)
                 {
