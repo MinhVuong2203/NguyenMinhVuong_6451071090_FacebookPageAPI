@@ -26,10 +26,13 @@ Invoke-RestMethod http://localhost:3000/api/admin/idempotency
 Invoke-RestMethod http://localhost:3000/api/admin/failures
 ```
 
-The local idempotency database is written to:
+Idempotency data is stored in MySQL using the `ConnectionStrings:MySql` value from `BackendAPI/appsettings.json`.
 
-```text
-BackendAPI/Data/idempotency-store.json
+The service creates these tables automatically if they do not exist:
+
+```sql
+sent_commands
+failed_commands
 ```
 
 ## Kafka success/idempotency test
@@ -52,9 +55,15 @@ Publish the same message twice to `reply_commands`.
 Expected result:
 
 1. First delivery calls Facebook Graph API.
-2. On success, `reply_comment:COMMENT_ID_TEST` is saved in `idempotency-store.json`.
+2. On success, `reply_comment:COMMENT_ID_TEST` is saved in the MySQL `sent_commands` table.
 3. Second delivery is skipped and does not call Facebook again.
 4. `GET /api/admin/idempotency` shows one record for that key.
+
+You can also verify directly in MySQL:
+
+```sql
+SELECT * FROM sent_commands ORDER BY sent_at DESC;
+```
 
 ## Kafka failure test
 
@@ -66,6 +75,12 @@ Expected result:
 2. Backend API records the failure.
 3. Backend API publishes a `send_failed` event.
 4. `GET /api/admin/failures` shows the failed command.
+
+You can also verify directly in MySQL:
+
+```sql
+SELECT * FROM failed_commands ORDER BY failed_at DESC;
+```
 
 ## Retry input test
 

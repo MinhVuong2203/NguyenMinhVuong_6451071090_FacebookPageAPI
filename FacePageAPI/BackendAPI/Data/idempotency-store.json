@@ -26,6 +26,15 @@
       "userId": "26607932662195563",
       "sentAt": "2026-05-23T04:00:33.008109Z",
       "facebookResponse": "{\u0022id\u0022:\u0022122103271568741950_1676992070157966\u0022}"
+    },
+    "reply_comment:122114007740741950_1007765642201943": {
+      "idempotencyKey": "reply_comment:122114007740741950_1007765642201943",
+      "commandId": "45cfee9a-ee42-4d8b-9a67-7250078420d5",
+      "commandType": "reply_comment",
+      "eventId": "122114007740741950_1007765642201943",
+      "userId": "26607932662195563",
+      "sentAt": "2026-05-24T09:23:00.7005162Z",
+      "facebookResponse": "{\u0022id\u0022:\u0022122114007740741950_2714847128916448\u0022}"
     }
   },
   "failedCommands": [
@@ -72,6 +81,15 @@
       "commandType": "hide_comment",
       "errorMessage": "Facebook Graph API failed: 403 {\u0022error\u0022:{\u0022message\u0022:\u0022(#200) Can not hide or unhide this comment\u0022,\u0022type\u0022:\u0022OAuthException\u0022,\u0022code\u0022:200,\u0022fbtrace_id\u0022:\u0022ADRHYUxEQKXnNpdAo0UnOzo\u0022}}",
       "failedAt": "2026-05-23T04:00:43.3190675Z",
+      "retryCount": 0
+    },
+    {
+      "failureId": "ea94a65c-4ab9-405c-aa9a-7d6066dd82a9",
+      "idempotencyKey": "hide_comment:122114007740741950_2714847128916448",
+      "commandId": "df75998a-9deb-425a-aed1-b2436b25dfad",
+      "commandType": "hide_comment",
+      "errorMessage": "Facebook Graph API failed: 403 {\u0022error\u0022:{\u0022message\u0022:\u0022(#200) Can not hide or unhide this comment\u0022,\u0022type\u0022:\u0022OAuthException\u0022,\u0022code\u0022:200,\u0022fbtrace_id\u0022:\u0022A8xkrs2eNGHzhQAUr3raGlV\u0022}}",
+      "failedAt": "2026-05-24T09:23:05.0419849Z",
       "retryCount": 0
     }
   ]
