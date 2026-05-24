@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebhookProcessing", "Webhoo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendAPI", "BackendAPI\BackendAPI.csproj", "{C65DE9A4-F21A-4D97-8A12-5BE5873E7801}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetryService", "RetryService\RetryService.csproj", "{6B6D1F31-A25F-40E8-930C-18E7EF41D5B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C65DE9A4-F21A-4D97-8A12-5BE5873E7801}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C65DE9A4-F21A-4D97-8A12-5BE5873E7801}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C65DE9A4-F21A-4D97-8A12-5BE5873E7801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B6D1F31-A25F-40E8-930C-18E7EF41D5B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B6D1F31-A25F-40E8-930C-18E7EF41D5B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B6D1F31-A25F-40E8-930C-18E7EF41D5B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B6D1F31-A25F-40E8-930C-18E7EF41D5B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

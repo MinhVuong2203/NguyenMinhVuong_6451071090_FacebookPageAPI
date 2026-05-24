@@ -1,0 +1,4 @@
+@RetryService_HostAddress = http://localhost:3003
+
+GET {{RetryService_HostAddress}}/api/retry/status
+Accept: application/json
