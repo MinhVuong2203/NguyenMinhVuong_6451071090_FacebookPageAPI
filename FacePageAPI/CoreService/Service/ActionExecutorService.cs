@@ -51,7 +51,7 @@ namespace CoreService.Service
                     await PublishCommand("reply_comment", evt, replyMessage);
                     evt.State = EventState.Replied;
                     evt.RepliedAt = DateTime.UtcNow;
-                    _logger.LogInformation($"✅ Published reply command for comment {evt.EventId}");
+                    _logger.LogInformation($" Published reply command for comment {evt.EventId}");
                     return true;
                 }
 
@@ -61,7 +61,7 @@ namespace CoreService.Service
             }
             catch (Exception ex)
             {
-                _logger.LogError($"❌ Error executing action for event {evt.EventId}: {ex.Message}");
+                _logger.LogError($" Error executing action for event {evt.EventId}: {ex.Message}");
                 evt.State = EventState.Failed;
                 evt.FailureReason = ex.Message;
                 return false;
@@ -132,12 +132,12 @@ namespace CoreService.Service
 
                 await _kafkaProducer.ProduceAsync("reply_commands", command.CommandId, command);
                 _spamDetection.AddToBlacklist(userId);
-                _logger.LogInformation($"✅ Published block command for user {userId}");
+                _logger.LogInformation($" Published block command for user {userId}");
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"❌ Error blocking user {userId}: {ex.Message}");
+                _logger.LogError($" Error blocking user {userId}: {ex.Message}");
                 return false;
             }
         }

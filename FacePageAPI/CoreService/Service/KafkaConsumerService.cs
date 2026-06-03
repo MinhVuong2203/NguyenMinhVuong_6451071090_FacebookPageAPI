@@ -42,14 +42,14 @@ namespace CoreService.Service
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("🚀 Core Service Kafka Consumer started");
+            _logger.LogInformation(" Core Service Kafka Consumer started");
 
             // Delay để ASP.NET server start hoàn toàn trước
             await Task.Delay(5000, stoppingToken);
 
             _consumer.Subscribe("raw_events");
 
-            _logger.LogInformation("✅ Subscribed to raw_events");
+            _logger.LogInformation(" Subscribed to raw_events");
 
             try
             {
@@ -69,7 +69,7 @@ namespace CoreService.Service
                         }
 
                         _logger.LogInformation(
-                            $"📨 Received event: {consumeResult.Message.Key}");
+                            $" Received event: {consumeResult.Message.Key}");
 
                         // Xử lý event
                         await ProcessEvent(consumeResult.Message.Value);
@@ -78,12 +78,12 @@ namespace CoreService.Service
                         _consumer.Commit(consumeResult);
 
                         _logger.LogInformation(
-                            $"✅ Committed offset for event: {consumeResult.Message.Key}");
+                            $" Committed offset for event: {consumeResult.Message.Key}");
                     }
                     catch (ConsumeException ex)
                     {
                         _logger.LogError(
-                            $"❌ Kafka consume error: {ex.Error.Reason}");
+                            $" Kafka consume error: {ex.Error.Reason}");
                     }
                     catch (OperationCanceledException)
                     {
@@ -93,10 +93,10 @@ namespace CoreService.Service
                     catch (Exception ex)
                     {
                         _logger.LogError(
-                            $"❌ Processing error: {ex.Message}");
+                            $" Processing error: {ex.Message}");
 
                         _logger.LogError(
-                            $"❌ Stack trace: {ex.StackTrace}");
+                            $" Stack trace: {ex.StackTrace}");
                     }
 
                     // Tránh loop ăn CPU
@@ -106,7 +106,7 @@ namespace CoreService.Service
             finally
             {
                 _consumer.Close();
-                _logger.LogInformation("🛑 Kafka consumer stopped");
+                _logger.LogInformation(" Kafka consumer stopped");
             }
         }
 
@@ -127,6 +127,15 @@ namespace CoreService.Service
                 if (normalizedEvent == null)
                 {
                     _logger.LogWarning("Invalid normalized event");
+                    return;
+                }
+
+                if (!string.IsNullOrWhiteSpace(normalizedEvent.UserId) &&
+                    !string.IsNullOrWhiteSpace(normalizedEvent.PageId) &&
+                    string.Equals(normalizedEvent.UserId, normalizedEvent.PageId, StringComparison.Ordinal))
+                {
+                    _logger.LogInformation(
+                        $"Skipping page-owned event {normalizedEvent.EventId} from page {normalizedEvent.PageId} to prevent reply loop.");
                     return;
                 }
 
@@ -159,7 +168,7 @@ namespace CoreService.Service
                     return;
                 }
 
-                _logger.LogInformation($"🤖 Analyzing message from {processedEvent.UserName}: {processedEvent.Message}");
+                _logger.LogInformation($" Analyzing message from {processedEvent.UserName}: {processedEvent.Message}");
 
                 // Update state to Processing
                 processedEvent.State = EventState.Processing;

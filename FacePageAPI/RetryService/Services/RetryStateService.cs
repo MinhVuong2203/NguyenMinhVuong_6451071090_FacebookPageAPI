@@ -10,6 +10,7 @@ namespace RetryService.Services
         public DateTime? LastProcessedAt { get; private set; }
         public string? LastFailureId { get; private set; }
         public string? LastAction { get; private set; }
+        public string? LastDeadLetterFailureId { get; private set; }
 
         public void MarkRetry(string failureId)
         {
@@ -30,6 +31,7 @@ namespace RetryService.Services
                 ConsumedFailedCount++;
                 DeadLetterCount++;
                 LastFailureId = failureId;
+                LastDeadLetterFailureId = failureId;
                 LastAction = "dead_letter";
                 LastProcessedAt = DateTime.UtcNow;
             }
@@ -51,10 +53,35 @@ namespace RetryService.Services
                     retriedCount = RetriedCount,
                     deadLetterCount = DeadLetterCount,
                     lastFailureId = LastFailureId,
+                    lastDeadLetterFailureId = LastDeadLetterFailureId,
                     lastAction = LastAction,
                     lastProcessedAt = LastProcessedAt
                 };
             }
         }
+
+        public RetryMetricsSnapshot GetMetricsSnapshot()
+        {
+            lock (_lock)
+            {
+                return new RetryMetricsSnapshot(
+                    ConsumedFailedCount,
+                    RetriedCount,
+                    DeadLetterCount,
+                    LastProcessedAt,
+                    LastFailureId,
+                    LastDeadLetterFailureId,
+                    LastAction);
+            }
+        }
     }
+
+    public record RetryMetricsSnapshot(
+        int ConsumedFailedCount,
+        int RetriedCount,
+        int DeadLetterCount,
+        DateTime? LastProcessedAt,
+        string? LastFailureId,
+        string? LastDeadLetterFailureId,
+        string? LastAction);
 }

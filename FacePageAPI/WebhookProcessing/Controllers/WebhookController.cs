@@ -113,6 +113,11 @@ namespace FacePageAPI.Controllers
             {
                 var value = change.Value;
 
+                if (value == null)
+                {
+                    return null;
+                }
+
                 // Xác định loại event (comment hoặc message)
                 string eventType = change.Field switch
                 {
@@ -124,6 +129,24 @@ namespace FacePageAPI.Controllers
                 if (eventType == "unknown")
                 {
                     return null;
+                }
+
+                if (eventType == "comment")
+                {
+                    if (!string.Equals(value.Verb, "add", StringComparison.OrdinalIgnoreCase))
+                    {
+                        _logger.LogInformation(
+                            $"Skipping comment event {value.CommentId ?? value.PostId}: verb '{value.Verb}' is not add.");
+                        return null;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(value.From?.Id) &&
+                        string.Equals(value.From.Id, entry.Id, StringComparison.Ordinal))
+                    {
+                        _logger.LogInformation(
+                            $"Skipping page-owned comment {value.CommentId ?? value.PostId} from page {entry.Id} to prevent reply loop.");
+                        return null;
+                    }
                 }
 
                 return new NormalizedEvent
